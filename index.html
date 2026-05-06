@@ -318,6 +318,32 @@ footer p{
     opacity: 1;
     bottom: -100px; /* efeito descendo */
 }
+.email-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+.email-box img {
+  width: 18px;
+  filter: invert(1); /* deixa branco */
+}
+.email-box:hover {
+  background: #1e293b;
+  transform: translateY(-2px);
+  pointer-events: auto; /* permite clique */
+}
+.email-box span {
+  font-size: 20px;
+}
+html {
+  scroll-behavior: smooth;
+}
 </style>
 
 <div class="firstSection">
