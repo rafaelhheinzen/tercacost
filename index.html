@@ -7,7 +7,120 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <style>
+    
+/* =========================
+   POPUP / MODAL
+========================= */
 
+.blur {
+  filter: blur(6px);
+  pointer-events: none;
+  user-select: none;
+  transition: 0.3s;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  width: 420px;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  animation: popup 0.3s ease;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal h2 {
+  color: #0f172a;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #f8fafc;
+  outline: none;
+  transition: .3s;
+}
+
+.modal input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37,99,235,.15);
+  background: white;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.modal button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-login {
+  background: linear-gradient(135deg,#2563eb,#1d4ed8);
+  color: white;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37,99,235,.3);
+}
+
+.btn-cancel {
+  background: #d1d5db;
+}
+
+.btn-cancel:hover {
+  background: #9ca3af;
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.register-link a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
 
 * {
     margin: 0;
@@ -136,8 +249,6 @@ li {
         margin-top: 80px;
         text-align: center;
         margin-bottom: 100px;
-        margin-left: 30px;
-        margin-right: 30px;
     }
  
 .integrantes {
@@ -316,6 +427,15 @@ footer p{
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
  
+.login-error{
+  color: #dc2626;
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 15px;
+  min-height: 20px;
+  font-weight: 500;
+}
+
 .card:hover .info {
     opacity: 1;
     bottom: -100px; /* efeito descendo */
@@ -346,26 +466,55 @@ footer p{
 html {
   scroll-behavior: smooth;
 }
-.column {
-  flex: 25%;
-  padding: 20px;
+
+/* =========================
+   USER MENU
+========================= */
+
+.user-area {
+  position: relative;
+  display: none;
 }
-@media screen and (max-width: 469px) {
-    .card {
-        width: 170px;
-    }
+
+.user-btn {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
 }
-@media screen and (max-width: 649px) {
-    #Sobre{
-        font-size: 80%;
-    }
-    }
-@media screen and (max-width: 484px) {
-    #Sobre{
-        font-size: 60%;
-    }
-    }
+
+.user-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: white;
+  width: 180px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+
+  display: none;
+}
+
+.user-dropdown button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.user-dropdown button:hover {
+  background: #f1f5f9;
+}
 </style>
+
+<body>
+    
 
 <div class="firstSection">
 
@@ -377,6 +526,21 @@ html {
         <a href="#Integrantes">Integrantes</a>
         <a href="#Produto">Produto</a>
         <a href="#Sobre">Sobre</a>
+
+<a id="loginOption" href="#" onclick="openLogin()">Login</a>
+<a href="#" id="userBTN" style="display: none;">Olá, Rafael</a>
+
+<div class="user-area" id="userArea">
+
+    <div class="user-dropdown" id="userDropdown">
+
+        <button onclick="logout()">
+            Sair da conta
+        </button>
+
+    </div>
+
+</div>
     </div>
 </nav>
 
@@ -390,74 +554,17 @@ html {
 
 </div>
 
-
-<section id="Integrantes">
-    <h1>Int<span style="text-decoration: underline;">egran</span>tes</h1>
-    <br>
-    <p class="subtitulo">Conheça os responsáveis pelo desenvolvimento do projeto:</p>
-        <br/>
-        <div class="integrantes">
- 
-            <div class="card">
-              <img src="https://avatars.githubusercontent.com/u/273097698?s=400&u=f9e235bb3134de9e92717caa9e421b1014ffeb1f&v=4%22 alt="Rafael Henrique Heinzen">
-              <p>Rafael Henrique <br> Heinzen</p>
-              <div class="info">
-                <p>(47) 99999-9999</p>
-                <p>rafael.heinzen@email.com</p>
-                <p>GitHub: rafa-sec</p>
-              </div>
-            </div>
-         
-            <div class="card">
-              <img src="https://volleybox.net/media/upload/players/1729818569rpv5e.png" alt="Bernardo Schmidt Koehler">
-                <p>Bernardo Schmidt <br> Koehler</p>
-                <a style="text-decoration: none;" href="https://i.pinimg.com/originals/67/78/69/677869bf0b20e7b1069154198380e29a.jpg">ㅤ</a>
-                <div class="info">
-                <p>(47) 99999-9999</p>
-                <p>bernardo.koehler@email.com</p>
-                <p>GitHub: bernardo-k</p>
-              </div>
-            </div>
-         
-            <div class="card">
-              <img src="https://media.licdn.com/dms/image/v2/D4E03AQFXA8uFxtm4DA/profile-displayphoto-shrink_200_200/B4EZVnWXC2GYAY-/0/1741195670297?e=2147483647&v=beta&t=J-eGFqC_FeRMN5FNBbTwPdtUHYz0S3ZzHpWyTdf9yB8%22 alt="Vinicius Theiss">
-              <p>Vinicius <br> Theiss</p>
-              <div class="info">
-                <p>(47) 99999-9999</p>
-                <p>vinicius.theiss@email.com</p>
-                <p>GitHub: vinicius-theiss</p>
-              </div>
-            </div>
-         
-            <div class="card">
-              <img src="https://media.licdn.com/dms/image/v2/D4D03AQHv7xdOEp3OHg/profile-displayphoto-shrink_200_200/B4DZRSC_J_HUAg-/0/1736543303636?e=2147483647&v=beta&t=CshxbBZDGaTuYW_Lmu5ELDtXq6E94t6ShRYE2hVvqvQ%22 alt="Miguel Mikoseit Façanha da Rocha">
-              <p>Miguel Mikoseit <br> Façanha da Rocha</p>
-              <div class="info">
-                <p>(47) 99999-9999</p>
-                <p>miguel.rocha@email.com</p>
-                <p>GitHub: miguel-rocha</p>
-              </div>
-            </div>
-         
-          </div>
-        <br/>
-
-        <p>Contato:</p>
-        <div class="github-mini">
-            <a href="https://github.com/rafaelhheinzen" target="_blank">
-              <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub">
-              <span>Ver no GitHub</span>
-            </a>
-          </div>
-
-</section>
-
 <diV id="secondSection">
+
+
+
 <section id="Produto">
     <h1>Pr<span style="text-decoration: underline;">odu</span>to</h1>
     <br>
     <p class="subtitulo">Ferramenta desenvolvida para facilitar o seu dia a dia.</p>
 
+
+    <a style="text-decoration: none;" href="#" onclick="openLogin()">
     <div class="produto-card">
 
       <div class="produto-icon">
@@ -477,6 +584,7 @@ html {
       </div>
 
     </div>
+    </a>
 
 
 
@@ -514,17 +622,192 @@ html {
 </a>
 </footer>
 
-</body>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay">
+
+  <!-- LOGIN -->
+  <div class="modal" id="loginModal">
+
+    <h2>Login</h2>
+    <form>
+
+    <input id="emailInput" type="email" placeholder="Seu email" required>
+    <input id="passwordInput" type="password" placeholder="Sua senha" required>
+    <p id="loginError" class="login-error"></p>
+
+    <div class="modal-buttons">
+      <button id="btn-login" class="btn-login">Entrar</button>
+
+      <button class="btn-cancel" onclick="closeModal()">
+        Cancelar
+      </button>
+    </div>
+
+    </form>
+
+  </div>
+
+</div>
 
 <script>
-  const subject = document.getElementById("subject")
-  const text = document.getElementsByClassName("text")
-  const subject = document.getElementById("subject").value
-  const text = document.getElementsByClassName("text").value
-  const submitBtn = document.getElementById("submitBtn")
 
-  submitBtn.addEventListener("click", function(){
-    window.location = `mailto:rafa.zqn@gmail.com?subject=${subject}&body=${text}`
-  })
+const btnLogin = document.getElementById("btn-login")
+
+const loginOption = document.getElementById("loginOption")
+
+const userBtn = document.getElementById("userBTN")
+
+const overlay = document.getElementById("overlay");
+
+const loginModal = document.getElementById("loginModal"); 
+const loginError = document.getElementById("loginError");
+
+
+let users = JSON.parse(localStorage.getItem("users")) || []
+
+function closeModal() {
+  overlay.style.display = "none";
+  removeBlur();
+}
+
+function removeBlur() {
+
+  document.body.children[0].classList.remove("blur");
+  document.body.children[1].classList.remove("blur");
+  document.body.children[2].classList.remove("blur");
+  document.body.children[3].classList.remove("blur");
+
+} 
+
+
+const user = {
+    nome: "Rafael",
+    email: "rafael@gmail.com",
+    password: "1234"
+}
+
+
+const jaexiste = users.find(u => u.email === user.email)
+
+if(!jaexiste){
+
+    users.push(user)
+
+    localStorage.setItem("users", JSON.stringify(users))
+}
+
+
+
+/* =========================
+   LOGIN
+========================= */
+
+btnLogin.addEventListener("click", ()=>{
+
+    let email = document.getElementById("emailInput").value
+
+    let password = document.getElementById("passwordInput").value
+
+    let users = JSON.parse(localStorage.getItem("users")) || []
+
+
+    const foundUser = users.find(user => 
+        user.email === email &&
+        user.password === password
+    )
+
+    if(foundUser){
+        loginError.innerText = "";
+
+        // esconde botão login
+        loginOption.style.display = "none"
+
+        // mostra botão usuário
+        userBtn.style.display = "inline-block"
+
+        // muda nome
+        userBtn.innerText = `Olá, ${foundUser.nome}`
+
+          overlay.style.display = "none";
+
+        removeBlur();
+
+        
+    } else {
+
+        loginError.innerText = "Email ou senha incorretos";
+
+    }
+
+})
+
+
+
+userBtn.addEventListener("click", ()=>{
+
+    userBtn.style.display = "none"
+
+    loginOption.style.display = "inline-block"
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+function blurSite() {
+
+  document.body.children[0].classList.add("blur");
+  document.body.children[1].classList.add("blur");
+  document.body.children[2].classList.add("blur");
+  document.body.children[3].classList.add("blur");
+
+}
+
+
+
+function openLogin() {
+  loginError.innerText = "";
+
+  overlay.style.display = "flex";
+
+  loginModal.style.display = "block";
+
+  blurSite();
+
+}
+
+function openRegister() {
+
+  overlay.style.display = "flex";
+
+  registerModal.style.display = "block";
+
+  loginModal.style.display = "none";
+
+  blurSite();
+
+}
+
+function switchToRegister() {
+
+  loginModal.style.display = "none";
+
+  registerModal.style.display = "block";
+
+}
+
+
+
 </script>
+</body>
 </html>
