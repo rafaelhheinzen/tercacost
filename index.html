@@ -1,307 +1,406 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metalúrgica</title>
-    <link rel="stylesheet" href="style.css">
-</head> 
+
+    <title>Área do Cliente | TerçaCost</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
 
 <body>
-    
 
-<div class="firstSection">
+    <header>
 
-<nav class="navbar">
-    <img src="https://png.pngtree.com/png-vector/20221221/ourmid/pngtree-gear-machine-electro-circuit-module-png-image_6530406.png">
+        <div class="logo">
 
-    <div class="menu">
-        <a href="#Home">Home</a>
-        <a href="#Integrantes">Integrantes</a>
-        <a href="#Produto">Produto</a>
-        <a href="#Sobre">Sobre</a>
+            <img src="img/logo.png" alt="TerçaCost">
 
-<a id="loginOption" href="#" onclick="openLogin()">Login</a>
-<a href="#" id="userBTN" style="display: none;">Olá, Rafael</a>
+        </div>
 
-<div class="user-area" id="userArea">
+        <div class="header-right">
 
-    <div class="user-dropdown" id="userDropdown">
+            <button class="notification">
 
-        <button onclick="logout()">
-            Sair da conta
-        </button>
+                <i class="fa-solid fa-bell"></i>
 
-    </div>
+            </button>
 
-</div>
-    </div>
-</nav>
+            <div class="user">
 
+                <img src="img/usericon.png" alt="Usuário">
 
-<section id="Home"> 
-    <h1>Bem-vindo!</h1>
-    <br/>
-    <h2>Facilitamos a compreensão das pessoas<br> não  especializadas no cálculo da construção de terças.</h2>
-</section>
+                <div>
 
+                    <strong>João Silva</strong>
 
-</div>
+                    <span>Cliente</span>
 
-<diV id="secondSection">
+                </div>
 
+            </div>
 
+        </div>
 
-<section id="Produto">
-    <h1>Pr<span style="text-decoration: underline;">odu</span>to</h1>
-    <br>
-    <p class="subtitulo">Ferramenta desenvolvida para facilitar o seu dia a dia.</p>
+    </header>
 
+    <main class="container">
 
-    <a style="text-decoration: none;" href="#" onclick="openLogin()">
-    <div class="produto-card">
+        <section class="welcome">
 
-      <div class="produto-icon">
-        <img src="https://cdn-icons-png.flaticon.com/512/4620/4620227.png" alt="">
-      </div>
+            <h1>Olá, João 👋</h1>
 
-      <div class="produto-info">
-        <h3>Calculadora de Terças</h3>
-        <p>
-          Uma solução prática e intuitiva para auxiliar no cálculo
-          e dimensionamento de terças de forma rápida e segura.
-        </p>
-      </div>
+            <p>
+                Bem-vindo à área do cliente.
+                Aqui você acompanha seus projetos.
+            </p>
 
-      <div class="produto-arrow">
-        →
-      </div>
+        </section>
 
-    </div>
-    </a>
+        <section class="new-project">
 
+            <button class="new-project-btn" onclick="novoProjeto()">
 
+                <span class="icon">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
 
+                <span>Novo Projeto</span>
 
+            </button>
 
-    <ul>
-        <li>98% dos clientes dizem ter facilitado seu trabalho</li>
-        <li>3/4 das empresas que adotaram cortaram seus custos em pelo menos 50%</li>
-    </ul>
-  </section>
+        </section>
 
-</div>
+        <section class="projects">
 
-<section id="Sobre">
-    <h1>S<span style="text-decoration: underline;">obr</span>e</h1>
-    <br>
-    <p class="subtitulo">Fundada por quatro jovens ambiciosos e astutos, a (nome) surgiu com o propósito de transformar a forma como profissionais do setor metalúrgico lidam com seus processos. Desde o início, a empresa entrou com força no mercado, trazendo inovação, eficiência e uma nova visão para a área de orçamentação.
+            <div class="title">
 
-        Com foco na praticidade e na precisão, a (nome) desenvolve soluções que facilitam o trabalho de orçamentistas, especialmente no segmento de produção de terças, onde cálculos e decisões técnicas exigem agilidade e confiabilidade. Ao unir tecnologia e conhecimento técnico, a empresa busca reduzir erros, otimizar tempo e aumentar a produtividade das equipes.
+                <h2>Meus Projetos</h2>
 
-        Mais do que uma ferramenta, a (nome) se posiciona como uma parceira estratégica para empresas do ramo metalúrgico, contribuindo diretamente para melhores resultados e processos mais inteligentes.
-        </p>
-</section>
+                <button id="toggleView">
+                    Ver todos
+                </button>
 
+            </div>
 
+            <div class="carousel">
 
+                <button class="nav prev" id="prev">
 
-<footer>
-<p>Todos os direitos reservados (nome) @2026</p>
-<p>Contato: </p>
-</br>
-<a href="mailto:miguelmikoseit@gmail.com?subject=Contato do site" class="email-box">
-  <img src="data:image/webp;base64,UklGRh4FAABXRUJQVlA4IBIFAABQIgCdASrEAMQAPp1Oo0wlpKMiJPJ5ILATiWNu4W5w9Rh/5zXMu9cqHvB395q883Y/5L9vXoc8SL9NusR5j/OK6QD/YdSVvI37NZR35RfQOxgOAVxzTvG4+A9Db9uxyJbmAeAi3MA8BFuYB4CLcwDwEW0eP/g0Ll0i/SOKYoyIa/ldQxIyTWGC8D2i93VseRDVtQg8w9eLgZ//nHcDbXYZpn0m/cOe/sLi4HqSLgpx1J2gT+nvV8CHCnS6Xvt5xhMT5ukNWzUHC82FsI+ljck/bKOqikyvITiwF7lwresMqvHhrm8RNfVYcQAVCeTYJL8zEJ38lHaVqcn37xYAXPS5V5MiGFrqsMPbuCLcwDwEW5gHgItzAPARbl6AAP7+KQAAAAHy8BXRwGtqR69pBU4lFWBrumGpFxlQ5yIUxhRJzJVhfOlw1dak4Ou7SzX1l/5p64IrvnRUNkfaHZoDSCFyrutL8yQka/oOrPyS0I4Yralf7zR8HG97dq1kS7GficqTd5yBMMb9sgQ+6k6JVdQ5P4zg/L8Dim+JeFxEB5wGS9ghASaNqbU5l7By2/Sco1TkFNMZYb2o3HSjZ+npHx9vUAFwKoCqqXwFXxQTDoGE5aYgkKQ/Kr4wPWIhd1YVnKv1H1cQvyZ1X4XKpvK22oPGjaDAtxtVi6YuoEtWCr0uXwAViGMxynv4/59XDVDZGe2/HOsLsjRfz/0/sK8RzM2/SXFjzerWvEQvR6W5WlTt8XFzXL8SioaTFQXlm+s1rRkCR6frt3AzzzkIPL3QoqLArTZ3bXdYX+JveKlJANNa/Sm3bhk3N4nOyYStEiy19gEh76N7U5yA7FvGckVlAyS4hYn6T4bjyk9p9RINjh2XISd23SRnvm5KcF0+YBsNwFNjhLEKsY16VbZCoQlauJo7SY5/PNkJCB2T1DEHX7Vgz6HzHHWLV7+O8IxysnDIwj4adviG/pGIE5AEaHkJR2vnHrvXDd6yZhNKN52/a4m28K0X1A0w4sw7sN/eQIwL4smU5YmQpR+cfg6NBnujdSf7p2WLC0KJVGXs7y+X1QCPK8qNuLs9/N0WyTCy4LRCV93l8MEN2rN45Rr8Eh+wQ4T2KGahZtv3COorO8ym6Vn8N5pNg9luBR7sDzEZ/g/fGofSwMtN1oQQvWErqWdg5Ue0uRMPdvfECYwsxvp9Z45ZxyMOqeIkqmds8Gf713NIdjRwNX29pFiVO4S4QQZbYpmI7wZ7DI2X65SOWve8PouMOi5rGMofBkkxXFv4gT6482HiKJOmGF9J9l4RQ5oAvgPv89TOXQn/oJm+zwAC33p/2rI4BnQpgnJh6mpGM0samYxUm3wFq4AybIhj0h9pwj4q+VrSO/VfYTxlUnkdbTLsv9atRJ8eIZMCO+fcRqfFv4fh4fLW7/jShE4D+Edj+Q5cVrteCge5qWXidxYTbyaRSLkVcLwxbvo63Y/dI35f11q7dwbvjKJyvhosEdnhdJFY6iArbWDIUmY08wwelhSWLgQzeoFq34Ec+DQbtUyHwws7fMQ9NuxmVHe3rVv8GIAum9nXoZJTEaRuO2y2Y9IFlut+q1nU8QMUJDD3HWEq/1T5esAv2UWdEwEP2gwS/YTwV6HEMhLP3dDp0AOqfGxPfFsIMO4qzyucSAW5Ezp45zbq4S+qQ5ijB4IFAqlEu6mG3mCDZ1FDxS1v8HaPbggAm/aDvCSL+76eRsoZwAAAAAAAAA==" alt="Gmail">
-  <span>Nosso email</span>
-</a>
-</footer>
+                    <i class="fa-solid fa-chevron-left"></i>
 
+                </button>
 
-<!-- OVERLAY -->
-<div class="overlay" id="overlay">
+                <div class="project-grid" id="projectGrid">
 
-  <!-- LOGIN -->
-  <div class="modal" id="loginModal">
+                    <!-- Projeto 1 -->
+                    <article class="project-card">
 
-    <h2>Login</h2>
-    <form>
+                        <div class="project-image"></div>
 
-    <input id="emailInput" type="email" placeholder="Seu email" required>
-    <input id="passwordInput" type="password" placeholder="Sua senha" required>
-    <p id="loginError" class="login-error"></p>
+                        <div class="project-info">
 
-    <div class="modal-buttons">
-      <button id="btn-login" class="btn-login">Entrar</button>
+                            <h3>Projeto Residencial</h3>
 
-      <button class="btn-cancel" onclick="closeModal()">
-        Cancelar
-      </button>
-    </div>
+                            <p>Residência • 220m²</p>
 
-    </form>
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
 
-  </div>
+                        </div>
 
-</div>
+                    </article>
+
+                    <!-- Projeto 2 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 3 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 4 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 5 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 6 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 7 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 8 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 9 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    </article>
+
+                </div>
+
+                <button class="nav next" id="next">
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
 
 <script>
+    const cards = document.querySelectorAll(".project-card");
 
-const btnLogin = document.getElementById("btn-login")
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const toggle = document.getElementById("toggleView");
 
-const loginOption = document.getElementById("loginOption")
+    const cardsPerPage = 6;
 
-const userBtn = document.getElementById("userBTN")
+    let currentPage = 0;
+    let showAll = false;
 
-const overlay = document.getElementById("overlay");
+    const totalPages = Math.ceil(cards.length / cardsPerPage);
 
-const loginModal = document.getElementById("loginModal"); 
-const loginError = document.getElementById("loginError");
+    function renderProjects() {
 
+        cards.forEach(card => {
 
-let users = JSON.parse(localStorage.getItem("users")) || []
+            card.style.display = "none";
 
-function closeModal() {
-  overlay.style.display = "none";
-  removeBlur();
-}
+        });
 
-function removeBlur() {
+        if (showAll) {
 
-  document.body.children[0].classList.remove("blur");
-  document.body.children[1].classList.remove("blur");
-  document.body.children[2].classList.remove("blur");
-  document.body.children[3].classList.remove("blur");
+            cards.forEach(card => {
+                card.style.display = "block";
+            });
 
-} 
+            projectGrid.classList.add("all-projects");
 
+            prev.style.display = "none";
+            next.style.display = "none";
 
-const user = {
-    nome: "Rafael",
-    email: "rafael@gmail.com",
-    password: "1234"
-}
+            toggle.innerHTML = "Mostrar menos";
 
+            return;
+        }
 
-const jaexiste = users.find(u => u.email === user.email)
+        prev.style.display = "flex";
+        next.style.display = "flex";
 
-if(!jaexiste){
+        toggle.innerHTML = "Ver todos";
 
-    users.push(user)
+        const start = currentPage * cardsPerPage;
+        const end = start + cardsPerPage;
 
-    localStorage.setItem("users", JSON.stringify(users))
-}
+        for (let i = start; i < end && i < cards.length; i++) {
 
+            cards[i].style.display = "block";
 
+            cards[i].animate([
+                {
+                    opacity: 0,
+                    transform: "translateY(15px)"
+                },
+                {
+                    opacity: 1,
+                    transform: "translateY(0)"
+                }
+            ], {
+                duration: 350,
+                easing: "ease"
+            });
 
-/* =========================
-   LOGIN
-========================= */
+        }
 
-btnLogin.addEventListener("click", ()=>{
-
-    let email = document.getElementById("emailInput").value
-
-    let password = document.getElementById("passwordInput").value
-
-    let users = JSON.parse(localStorage.getItem("users")) || []
-
-
-    const foundUser = users.find(user => 
-        user.email === email &&
-        user.password === password
-    )
-
-    if(foundUser){
-        loginError.innerText = "";
-
-        // esconde botão login
-        loginOption.style.display = "none"
-
-        // mostra botão usuário
-        userBtn.style.display = "inline-block"
-
-        // muda nome
-        userBtn.innerText = `Olá, ${foundUser.nome}`
-
-          overlay.style.display = "none";
-
-        removeBlur();
-
-        
-    } else {
-
-        loginError.innerText = "Email ou senha incorretos";
+        prev.disabled = currentPage === 0;
+        next.disabled = currentPage === totalPages - 1;
 
     }
 
-})
+    next.addEventListener("click", () => {
+
+        if (currentPage < totalPages - 1) {
+
+            currentPage++;
+
+            renderProjects();
+
+        }
+
+    });
+
+    prev.addEventListener("click", () => {
+
+        if (currentPage > 0) {
+
+            currentPage--;
+
+            renderProjects();
+
+        }
+
+    });
+
+    toggle.addEventListener("click", () => {
+
+        showAll = !showAll;
+
+        currentPage = 0;
+
+        renderProjects();
+
+    });
+
+    renderProjects();
 
 
-
-userBtn.addEventListener("click", ()=>{
-
-    userBtn.style.display = "none"
-
-    loginOption.style.display = "inline-block"
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-function blurSite() {
-
-  document.body.children[0].classList.add("blur");
-  document.body.children[1].classList.add("blur");
-  document.body.children[2].classList.add("blur");
-  document.body.children[3].classList.add("blur");
-
-}
-
-
-
-function openLogin() {
-  loginError.innerText = "";
-
-  overlay.style.display = "flex";
-
-  loginModal.style.display = "block";
-
-  blurSite();
-
-}
-
-function openRegister() {
-
-  overlay.style.display = "flex";
-
-  registerModal.style.display = "block";
-
-  loginModal.style.display = "none";
-
-  blurSite();
-
-}
-
-function switchToRegister() {
-
-  loginModal.style.display = "none";
-
-  registerModal.style.display = "block";
-
-}
-
-
-
+    function novoProjeto(){
+        window.location = "novoprojeto.html"
+    }
 </script>
-</body>
-</html>

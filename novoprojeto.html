@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Novo Projeto | TerçaCost</title>
+
+<link rel="stylesheet" href="/css/novoprojeto.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+<body>
+
+<header>
+
+    <img src="img/logo.png" class="logo">
+
+    <div class="user">
+        <i class="fa-solid fa-circle-user"></i>
+    </div>
+
+</header>
+
+<div class="page">
+
+    <aside class="sidebar">
+
+        <h2>Novo Projeto</h2>
+        <p>Informe os dados da estrutura.</p>
+
+        <div class="input-group">
+            <label>Nome do Projeto</label>
+            <input type="text" placeholder="Residência Silva">
+        </div>
+
+        <div class="input-group">
+            <label>Tipo de Estrutura</label>
+ 
+            <select>
+
+                <option>Terça</option>
+                <option>Viga Engastada</option>
+                <option>Treliça</option>
+
+            </select>
+
+        </div>
+
+        <div class="input-group">
+            <label>Comprimento (m)</label>
+            <input id="length" type="number">
+        </div>
+
+        <div class="input-group">
+            <label>Carga (kN/m)</label>
+            <input id="load" type="number">
+        </div>
+
+        <div class="input-group">
+            <label>Material</label>
+
+            <select>
+
+                <option>Concreto Armado</option>
+                <option>Aço</option>
+                <option>Madeira</option>
+
+            </select>
+
+        </div>
+
+        <button id="calculate">
+
+            <i class="fa-solid fa-calculator"></i>
+
+            Calcular
+
+        </button>
+
+    </aside>
+
+    <main class="preview">
+
+        <div class="beam-card">
+
+            <img src="img/beam.png">
+
+        </div>
+
+        <div class="result">
+
+            <h3>Resultado</h3>
+
+            <p id="result">
+                Preencha os campos e clique em calcular.
+            </p>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="/js/novoprojeto.js"></script>
+
+</body>
+</html>
