@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Área do Cliente | TerçaCost</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+
+            <img src="img/logo.png" alt="TerçaCost">
+
+        </div>
+
+        <div class="header-right">
+
+            <button class="notification">
+
+                <i class="fa-solid fa-bell"></i>
+
+            </button>
+
+            <div class="user">
+
+                <img src="img/usericon.png" alt="Usuário">
+
+                <div>
+
+                    <strong>João Silva</strong>
+
+                    <span>Cliente</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <main class="container">
+
+        <section class="welcome">
+
+            <h1>Olá, João 👋</h1>
+
+            <p>
+                Bem-vindo à área do cliente.
+                Aqui você acompanha seus projetos.
+            </p>
+
+        </section>
+
+        <section class="new-project">
+
+            <button class="new-project-btn" onclick="novoProjeto()">
+
+                <span class="icon">
+                    <i class="fa-solid fa-plus"></i>
+                </span>
+
+                <span>Novo Projeto</span>
+
+            </button>
+
+        </section>
+
+        <section class="projects">
+
+            <div class="title">
+
+                <h2>Meus Projetos</h2>
+
+                <button id="toggleView">
+                    Ver todos
+                </button>
+
+            </div>
+
+            <div class="carousel">
+
+                <button class="nav prev" id="prev">
+
+                    <i class="fa-solid fa-chevron-left"></i>
+
+                </button>
+
+                <div class="project-grid" id="projectGrid">
+
+                    <!-- Projeto 1 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 2 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 3 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 4 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 5 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 6 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 7 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 8 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status andamento">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Projeto 9 -->
+                    <article class="project-card">
+
+                        <div class="project-image"></div>
+
+                        <div class="project-info">
+
+                            <h3>Projeto Residencial</h3>
+
+                            <p>Residência • 220m²</p>
+
+                            <span class="status finalizado">
+                                Em andamento
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    </article>
+
+                </div>
+
+                <button class="nav next" id="next">
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
+
+<script>
+    const cards = document.querySelectorAll(".project-card");
+
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const toggle = document.getElementById("toggleView");
+
+    const cardsPerPage = 6;
+
+    let currentPage = 0;
+    let showAll = false;
+
+    const totalPages = Math.ceil(cards.length / cardsPerPage);
+
+    function renderProjects() {
+
+        cards.forEach(card => {
+
+            card.style.display = "none";
+
+        });
+
+        if (showAll) {
+
+            cards.forEach(card => {
+                card.style.display = "block";
+            });
+
+            projectGrid.classList.add("all-projects");
+
+            prev.style.display = "none";
+            next.style.display = "none";
+
+            toggle.innerHTML = "Mostrar menos";
+
+            return;
+        }
+
+        prev.style.display = "flex";
+        next.style.display = "flex";
+
+        toggle.innerHTML = "Ver todos";
+
+        const start = currentPage * cardsPerPage;
+        const end = start + cardsPerPage;
+
+        for (let i = start; i < end && i < cards.length; i++) {
+
+            cards[i].style.display = "block";
+
+            cards[i].animate([
+                {
+                    opacity: 0,
+                    transform: "translateY(15px)"
+                },
+                {
+                    opacity: 1,
+                    transform: "translateY(0)"
+                }
+            ], {
+                duration: 350,
+                easing: "ease"
+            });
+
+        }
+
+        prev.disabled = currentPage === 0;
+        next.disabled = currentPage === totalPages - 1;
+
+    }
+
+    next.addEventListener("click", () => {
+
+        if (currentPage < totalPages - 1) {
+
+            currentPage++;
+
+            renderProjects();
+
+        }
+
+    });
+
+    prev.addEventListener("click", () => {
+
+        if (currentPage > 0) {
+
+            currentPage--;
+
+            renderProjects();
+
+        }
+
+    });
+
+    toggle.addEventListener("click", () => {
+
+        showAll = !showAll;
+
+        currentPage = 0;
+
+        renderProjects();
+
+    });
+
+    renderProjects();
+
+
+    function novoProjeto(){
+        window.location = "novoprojeto.html"
+    }
+</script>
