@@ -15,13 +15,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
 <header>
 
-    <img src="img/logo.png" class="logo">
+    <img src="img/logoHeader.png" class="logo">
 
     <div class="user">
         <i class="fa-solid fa-circle-user"></i>
     </div>
 
 </header>
+
+
 
 <div class="page">
 
@@ -30,54 +32,40 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         <h2>Novo Projeto</h2>
         <p>Informe os dados da estrutura.</p>
 
-        <div class="input-group">
-            <label>Nome do Projeto</label>
-            <input type="text" placeholder="Residência Silva">
-        </div>
+<div class="input-group">
+    <label>Nome do Projeto</label>
+    <input type="text" id="descricao" placeholder="Residência Silva">
+</div>
 
-        <div class="input-group">
-            <label>Tipo de Estrutura</label>
- 
-            <select>
+<div class="input-group">
+    <label>Nome do Perfil</label>
+    <input type="text" id="nomedoPerfil" placeholder="U150x50x2.5">
+</div>
 
-                <option>Terça</option>
-                <option>Viga Engastada</option>
-                <option>Treliça</option>
+<div class="input-group">
+    <label>MSD (kN·m)</label>
+    <input type="number" step="0.01" id="msd" placeholder="0.00">
+</div>
 
-            </select>
+<div class="input-group">
+    <label>VSD (kN)</label>
+    <input type="number" step="0.01" id="vsd" placeholder="0.00">
+</div>
 
-        </div>
+<div class="input-group">
+    <label>Lb (m)</label>
+    <input type="number" step="0.01" id="lb" placeholder="0.00">
+</div>
 
-        <div class="input-group">
-            <label>Comprimento (m)</label>
-            <input id="length" type="number">
-        </div>
+<div class="input-group">
+    <label>Cb</label>
+    <input type="number" step="0.01" id="cb" placeholder="1.00">
+</div>
 
-        <div class="input-group">
-            <label>Carga (kN/m)</label>
-            <input id="load" type="number">
-        </div>
-
-        <div class="input-group">
-            <label>Material</label>
-
-            <select>
-
-                <option>Concreto Armado</option>
-                <option>Aço</option>
-                <option>Madeira</option>
-
-            </select>
-
-        </div>
-
-        <button id="calculate">
-
-            <i class="fa-solid fa-calculator"></i>
-
-            Calcular
-
-        </button>
+<button id="calculate">
+    <i class="fa-solid fa-floppy-disk"></i>
+    Salvar Projeto
+</button>
 
     </aside>
 
@@ -85,7 +73,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 
         <div class="beam-card">
 
-            <img src="img/beam.png">
+            <img src="img/PlantaTerca.png">
 
         </div>
 
