@@ -1,39 +1,40 @@
+const userJson = localStorage.getItem("user");
+
+if (!userJson) {
+    window.location.href = "login.html";
+}
+
+const user = JSON.parse(userJson);
 const API_URL = "http://localhost:8080/projetos";
 
-// Verificar se existe um id na url
 const urlParams = new URLSearchParams(window.location.search);
 const projectId = urlParams.get("id");
 
-// Carregar dados existentes de um projeto antigo
+// Carregar dados do projeto no modo edição
 if (projectId) {
-    carregarProjeto(projectId);
+    fetch(`${API_URL}/${projectId}/usuario/${user.id}`)
+        .then(res => {
+            if (!res.ok) throw new Error("Acesso não autorizado ou projeto inexistente.");
+            return res.json();
+        })
+        .then(data => {
+            document.getElementById("descricao").value = data.descricao || "";
+            document.getElementById("nomedoPerfil").value = data.nomedoPerfil || "";
+            document.getElementById("msd").value = data.msd ?? "";
+            document.getElementById("vsd").value = data.vsd ?? "";
+            document.getElementById("lb").value = data.lb ?? "";
+            document.getElementById("cb").value = data.cb ?? "";
+
+            document.querySelector(".sidebar h2").innerText = "Editar Projeto";
+            document.getElementById("calculate").innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Atualizar Projeto`;
+        })
+        .catch(err => {
+            alert(err.message);
+            window.location.href = "index.html";
+        });
 }
 
-async function carregarProjeto(id) {
-    try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) throw new Error("Projeto não encontrado");
-
-        const proj = await response.json();
-
-        // Carregar inputs
-        document.getElementById("descricao").value = proj.descricao || "";
-        document.getElementById("nomedoPerfil").value = proj.nomedoPerfil || "";
-        document.getElementById("msd").value = proj.msd ?? "";
-        document.getElementById("vsd").value = proj.vsd ?? "";
-        document.getElementById("lb").value = proj.lb ?? "";
-        document.getElementById("cb").value = proj.cb ?? "";
-
-        // Atualizar UI do botão e título
-        document.querySelector(".sidebar h2").innerText = "Editar Projeto";
-        document.getElementById("calculate").innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Atualizar Projeto`;
-    } catch (error) {
-        console.error("Erro ao carregar dados:", error);
-        alert("Erro ao carregar os dados do projeto.");
-    }
-}
-
-// Salvar o atualizar
+// Salvar ou atualizar inputs do projeto
 document.getElementById("calculate").addEventListener("click", async () => {
     const descricao = document.getElementById("descricao").value.trim();
     const nomedoPerfil = document.getElementById("nomedoPerfil").value.trim();
@@ -56,10 +57,10 @@ document.getElementById("calculate").addEventListener("click", async () => {
         msd: MSD,
         vsd: VSD,
         lb: Lb,
-        cb: Cb
+        cb: Cb,
+        usuario: { id: user.id }
     };
 
-    // Determinar se é PUT ou POST
     const isEdit = Boolean(projectId);
     const targetUrl = isEdit ? `${API_URL}/${projectId}` : API_URL;
     const httpMethod = isEdit ? "PUT" : "POST";
