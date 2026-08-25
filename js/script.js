@@ -1,3 +1,9 @@
+const userJson = localStorage.getItem("user");
+if (!userJson) {
+    window.location.href = "login.html";
+}
+const user = JSON.parse(userJson);
+
 const API_URL = "http://localhost:8080/projetos";
 
 const projectGrid = document.getElementById("projectGrid");
@@ -10,22 +16,39 @@ let currentPage = 0;
 let showAll = false;
 let projectsData = [];
 
-// Fazer fetch de dados apartir da API SpringBoot
+// Atualizar nome do usuário no canto superior direito do header da página
+if (document.getElementById("user-name")) {
+    document.getElementById("user-name").innerText = user.nome;
+}
+const welcomeHeader = document.querySelector(".welcome h1");
+if (welcomeHeader) {
+    welcomeHeader.innerText = `Olá, ${user.nome}!`;
+}
+
+function logout() {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+
+// fetchProjects que puxa os projetos de um usuário baseado em seu id.
 async function fetchProjects() {
     try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error("Erro ao carregar projetos");
+        const response = await fetch(`${API_URL}/usuario/${user.id}`);
+        if (!response.ok) throw new Error("Erro ao carregar projetos.");
         
         projectsData = await response.json();
         renderProjects();
     } catch (error) {
         console.error("Erro na requisição:", error);
-        projectGrid.innerHTML = `<p style="color:red;">Não foi possível carregar os projetos.</p>`;
+        if (projectGrid) {
+            projectGrid.innerHTML = `<p style="color:red;">Não foi possível carregar os projetos.</p>`;
+        }
     }
 }
 
-// Renderizar os cards de projetos
+// Renderizar cards dos projetos
 function renderProjects() {
+    if (!projectGrid) return;
     projectGrid.innerHTML = "";
 
     if (projectsData.length === 0) {
@@ -57,7 +80,6 @@ function renderProjects() {
         next.disabled = currentPage >= totalPages - 1 || totalPages === 0;
     }
 
-    // Gerar o HTML dos cards
     displayedProjects.forEach(proj => {
         const card = document.createElement("article");
         card.className = "project-card";
@@ -84,7 +106,6 @@ function renderProjects() {
     });
 }
 
-// Sistema de navegação e ações do projeto
 function abrirProjeto(id) {
     window.location.href = `novoprojeto.html?id=${id}`;
 }
@@ -93,7 +114,7 @@ async function deletarProjeto(id) {
     if (!confirm("Tem certeza que deseja excluir este projeto?")) return;
 
     try {
-        const response = await fetch(`${API_URL}/${id}`, {
+        const response = await fetch(`${API_URL}/${id}/usuario/${user.id}`, {
             method: "DELETE"
         });
 
@@ -101,7 +122,7 @@ async function deletarProjeto(id) {
             projectsData = projectsData.filter(proj => proj.id !== id);
             renderProjects();
         } else {
-            alert("Erro ao excluir o projeto.");
+            alert("Você não tem permissão para excluir este projeto.");
         }
     } catch (error) {
         console.error("Erro ao deletar:", error);
@@ -133,5 +154,5 @@ function novoProjeto() {
     window.location.href = "novoprojeto.html";
 }
 
-// Initialize
+// Iniciar
 fetchProjects();
