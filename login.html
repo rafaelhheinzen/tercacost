@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação | TerçaCost</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header matching existing pages -->
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="TerçaCost">
+        </div>
+    </header>
+
+    <main class="auth-container">
+        <div class="auth-card">
+            
+            <!-- Tab Switcher -->
+            <div class="auth-tabs">
+                <button id="tab-login" class="active" onclick="switchTab('login')">Entrar</button>
+                <button id="tab-register" onclick="switchTab('register')">Criar Conta</button>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form id="login-form" class="auth-form">
+                <h2>Acessar sua Conta</h2>
+                <p class="subtitle">Informe suas credenciais para continuar.</p>
+
+                <div class="input-group">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="login-password">Senha</label>
+                    <input type="password" id="login-password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-right-to-bracket"></i> Entrar
+                </button>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="register-form" class="auth-form hidden">
+                <h2>Criar nova Conta</h2>
+                <p class="subtitle">Preencha os dados abaixo para se cadastrar.</p>
+
+                <div class="input-group">
+                    <label for="reg-name">Nome Completo</label>
+                    <input type="text" id="reg-name" placeholder="João Silva" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-email">E-mail</label>
+                    <input type="email" id="reg-email" placeholder="seuemail@exemplo.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-password">Senha</label>
+                    <input type="password" id="reg-password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-user-plus"></i> Cadastrar
+                </button>
+            </form>
+
+            <p id="auth-message" class="auth-message"></p>
+
+        </div>
+    </main>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>
