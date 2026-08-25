@@ -10,7 +10,7 @@ let currentPage = 0;
 let showAll = false;
 let projectsData = [];
 
-// Fazer fetch de dados com Springboot API
+// Fetch data from Spring Boot API
 async function fetchProjects() {
     try {
         const response = await fetch(API_URL);
@@ -24,7 +24,7 @@ async function fetchProjects() {
     }
 }
 
-// Renderizar Projetos
+// Render cards dynamically
 function renderProjects() {
     projectGrid.innerHTML = "";
 
@@ -57,7 +57,7 @@ function renderProjects() {
         next.disabled = currentPage >= totalPages - 1 || totalPages === 0;
     }
 
-    // Criar HTML para cada projeto existente
+    // Build and insert HTML cards
     displayedProjects.forEach(proj => {
         const card = document.createElement("article");
         card.className = "project-card";
@@ -84,7 +84,7 @@ function renderProjects() {
     });
 }
 
-// Sistema de navegar projetos
+// Navigation & Actions
 function abrirProjeto(id) {
     window.location.href = `novoprojeto.html?id=${id}`;
 }
