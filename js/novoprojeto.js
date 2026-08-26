@@ -5,7 +5,7 @@ if (!userJson) {
 }
 
 const user = JSON.parse(userJson);
-const API_URL = "http://localhost:8080/projetos";
+const API_URL = "tercacost-production.up.railway.app";
 
 const urlParams = new URLSearchParams(window.location.search);
 const projectId = urlParams.get("id");
