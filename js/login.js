@@ -1,4 +1,4 @@
-const AUTH_URL = "tercacost-production.up.railway.app";
+const AUTH_URL = "http://localhost:8080/auth";
 
 document.getElementById("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
