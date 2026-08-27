@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área do Cliente | TerçaCost</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
 
     <header>
@@ -20,9 +22,13 @@
             <div class="user">
                 <img src="img/usericon.png" alt="Usuário">
                 <div>
-                    <strong>João Silva</strong>
+                    <strong id="user-name">João Silva</strong>
                     <span>Cliente</span>
                 </div>
+                <button onclick="logout()"
+                    style="background: none; border: none; color: #ef4444; margin-left: 10px; cursor: pointer;">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -63,4 +69,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
