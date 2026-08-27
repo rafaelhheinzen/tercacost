@@ -16,7 +16,7 @@ let currentPage = 0;
 let showAll = false;
 let projectsData = [];
 
-// Atualizar nome do usuário no canto superior direito do header da página
+// Update user name on top right header and welcome banner
 if (document.getElementById("user-name")) {
     document.getElementById("user-name").innerText = user.nome;
 }
@@ -30,12 +30,12 @@ function logout() {
     window.location.href = "login.html";
 }
 
-// fetchProjects que puxa os projetos de um usuário baseado em seu id.
+// SINGLE fetchProjects declaration querying ONLY active user's projects
 async function fetchProjects() {
     try {
         const response = await fetch(`${API_URL}/usuario/${user.id}`);
         if (!response.ok) throw new Error("Erro ao carregar projetos.");
-        
+
         projectsData = await response.json();
         renderProjects();
     } catch (error) {
@@ -46,7 +46,7 @@ async function fetchProjects() {
     }
 }
 
-// Renderizar cards dos projetos
+// Render cards dynamically
 function renderProjects() {
     if (!projectGrid) return;
     projectGrid.innerHTML = "";
@@ -84,23 +84,27 @@ function renderProjects() {
         const card = document.createElement("article");
         card.className = "project-card";
 
+        // Adicionado tratamento defensivo usando || 0 e validações para evitar travamentos
+        const msdFormatado = proj.msd !== undefined && proj.msd !== null ? Number(proj.msd).toFixed(2) : "0.00";
+        const lbFormatado = proj.lb !== undefined && proj.lb !== null ? Number(proj.lb).toFixed(2) : "0.00";
+
         card.innerHTML = `
-            <div class="project-image"></div>
-            <div class="project-info">
-                <h3>${proj.descricao || "Projeto sem título"}</h3>
-                <p>Perfil: ${proj.nomedoPerfil || "N/A"} • Lb: ${proj.lb || 0}m</p>
-                <span class="status andamento">MSd: ${proj.msd} kN·m</span>
-                
-                <div style="margin-top: 10px; display: flex; gap: 8px;">
-                    <button onclick="abrirProjeto(${proj.id})" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-                        <i class="fa-solid fa-folder-open"></i> Abrir
-                    </button>
-                    <button onclick="deletarProjeto(${proj.id})" style="background: red; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-                        <i class="fa-solid fa-trash"></i> Excluir
-                    </button>
-                </div>
+        <div class="project-image"></div>
+        <div class="project-info">
+            <h3>${proj.descricao || "Projeto sem título"}</h3>
+            <p>Perfil: ${proj.nomedoPerfil || "N/A"} • Lb: ${lbFormatado}mm</p>
+            <span class="status andamento">MSd: ${msdFormatado} kN·m</span>
+            
+            <div style="margin-top: 10px; display: flex; gap: 8px;">
+                <button onclick="abrirProjeto(${proj.id})" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                    <i class="fa-solid fa-folder-open"></i> Abrir
+                </button>
+                <button onclick="deletarProjeto(${proj.id})" style="background: red; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                    <i class="fa-solid fa-trash"></i> Excluir
+                </button>
             </div>
-        `;
+        </div>
+    `;
 
         projectGrid.appendChild(card);
     });
@@ -154,5 +158,5 @@ function novoProjeto() {
     window.location.href = "novoprojeto.html";
 }
 
-// Iniciar
+// Initialize
 fetchProjects();
