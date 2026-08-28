@@ -80,20 +80,23 @@ function renderProjects() {
         next.disabled = currentPage >= totalPages - 1 || totalPages === 0;
     }
 
+    // Procure por este trecho dentro da função renderProjects() no seu js/script.js:
     displayedProjects.forEach(proj => {
         const card = document.createElement("article");
         card.className = "project-card";
 
-        // Adicionado tratamento defensivo usando || 0 e validações para evitar travamentos
+        // CORREÇÃO: Lê 'proj.nome' (MySQL) em vez de 'proj.descricao'
+        const tituloProjeto = proj.nome || "Projeto sem título";
         const msdFormatado = proj.msd !== undefined && proj.msd !== null ? Number(proj.msd).toFixed(2) : "0.00";
-        const lbFormatado = proj.lb !== undefined && proj.lb !== null ? Number(proj.lb).toFixed(2) : "0.00";
 
+        // CORREÇÃO: No MySQL, as propriedades de Lb e as dimensões ficam na tabela Coberturas.
+        // Para o carrossel carregar limpo sem travar:
         card.innerHTML = `
         <div class="project-image"></div>
         <div class="project-info">
-            <h3>${proj.descricao || "Projeto sem título"}</h3>
-            <p>Perfil: ${proj.nomedoPerfil || "N/A"} • Lb: ${lbFormatado}mm</p>
-            <span class="status andamento">MSd: ${msdFormatado} kN·m</span>
+            <h3>${tituloProjeto}</h3>
+            <p>Perfil: ${proj.tipoPerfil || "Disponível"} • ID: #${proj.id}</p>
+            <span class="status andamento">Registrado no MySQL</span>
             
             <div style="margin-top: 10px; display: flex; gap: 8px;">
                 <button onclick="abrirProjeto(${proj.id})" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
@@ -108,6 +111,7 @@ function renderProjects() {
 
         projectGrid.appendChild(card);
     });
+
 }
 
 function abrirProjeto(id) {
