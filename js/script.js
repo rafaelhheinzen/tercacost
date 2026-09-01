@@ -1,60 +1,114 @@
-const userJson = localStorage.getItem("user");
-if (!userJson) {
-    window.location.href = "login.html";
-}
-const user = JSON.parse(userJson);
-
+// =====================================================================
+// VARIÁVEIS GLOBAIS DE CONTROLE DO CARROSSEL E SISTEMA
+// =====================================================================
 const API_URL = "http://localhost:8080/projetos";
-
-const projectGrid = document.getElementById("projectGrid");
-const prev = document.getElementById("prev");
-const next = document.getElementById("next");
-const toggle = document.getElementById("toggleView");
-
-const cardsPerPage = 6;
+let projectsData = []; // Array global unificado que recebe os dados do MySQL
 let currentPage = 0;
+const cardsPerPage = 3;
 let showAll = false;
-let projectsData = [];
 
-// Update user name on top right header and welcome banner
-if (document.getElementById("user-name")) {
-    document.getElementById("user-name").innerText = user.nome;
-}
-const welcomeHeader = document.querySelector(".welcome h1");
-if (welcomeHeader) {
-    welcomeHeader.innerText = `Olá, ${user.nome}!`;
-}
+// Elementos da árvore do DOM da página index.html
+const projectGrid = document.getElementById("project-grid")
+const prev = document.getElementById("prev-btn");
+const next = document.getElementById("next-btn");
+const toggle = document.getElementById("toggle-btn");
 
-function logout() {
-    localStorage.removeItem("user");
+// Captura e validação inicial do usuário logado na sessão web
+const userRaw = localStorage.getItem("user");
+if (!userRaw) {
     window.location.href = "login.html";
 }
+const user = JSON.parse(userRaw);
 
-// SINGLE fetchProjects declaration querying ONLY active user's projects
-async function fetchProjects() {
+
+
+
+
+// Adicione esta lógica dentro do bloco de carregamento inicial do seu js/script.js:
+document.addEventListener("DOMContentLoaded", () => {
+    const userRaw = localStorage.getItem("user");
+    if (userRaw) {
+        const usuarioLogado = JSON.parse(userRaw);
+        
+        // Substitui o texto estático "João Silva" pelo nome real cadastrado no MySQL
+        const elementoNomeTopo = document.querySelector("#user-name"); // Ajuste o seletor CSS se necessário
+        const elementoSaudacao = document.querySelector(".welcome-section h1, h1"); 
+        
+        // Alimenta dinamicamente as tags da tela com o nome vindo do banco
+        if (elementoNomeTopo && usuarioLogado.nome) {
+            elementoNomeTopo.innerText = usuarioLogado.nome;
+        }
+        if (elementoSaudacao && usuarioLogado.nome) {
+            // Pega apenas o primeiro nome para a saudação amigável
+            const primeiroNome = usuarioLogado.nome.split(" ")[0];
+            elementoSaudacao.innerText = `Olá, ${primeiroNome}!`;
+        }
+    }
+});
+
+
+
+
+
+
+
+// =====================================================================
+// FUNÇÃO 1: FAZ O FETCH DOS DADOS NO BACK-END (MYSQL + SPRING SECURITY)
+// =====================================================================
+async function carregarProjetosDoUsuario() {
+    const emailUsuario = localStorage.getItem("userEmail");
+    const senhaUsuario = localStorage.getItem("userPassword");
+
+    if (!emailUsuario || !senhaUsuario) {
+        window.location.href = "login.html";
+        return;
+    }
+
+    // Gera o passaporte criptografado em texto Basic Auth para passar pelo SecurityConfig
+    const credenciaisCodificadas = btoa(`${emailUsuario}:${senhaUsuario}`);
+
     try {
-        const response = await fetch(`${API_URL}/usuario/${user.id}`);
-        if (!response.ok) throw new Error("Erro ao carregar projetos.");
-
-        projectsData = await response.json();
-        renderProjects();
-    } catch (error) {
-        console.error("Erro na requisição:", error);
         if (projectGrid) {
-            projectGrid.innerHTML = `<p style="color:red;">Não foi possível carregar os projetos.</p>`;
+            projectGrid.innerHTML = `<p><i class="fa-solid fa-spinner fa-spin"></i> Lendo tabelas estruturais no MySQL...</p>`;
+        }
+
+        const response = await fetch(`${API_URL}/usuario/${user.id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Basic ${credenciaisCodificadas}`
+            }
+        });
+
+        if (!response.ok) throw new Error("Não foi possível carregar os registros do banco.");
+
+        const projetos = await response.json();
+        
+        // Alimenta a variável global correta que o renderizador lê
+        projectsData = projetos; 
+        
+        // Dispara a montagem visual dos cards
+        renderProjects();
+
+    } catch (err) {
+        console.error("Erro na carga do carrossel:", err);
+        if (projectGrid) {
+            projectGrid.innerHTML = `<p style="color: #ef4444; font-weight: bold;">❌ Erro ao conectar com o banco: ${err.message}</p>`;
         }
     }
 }
 
-// Render cards dynamically
+// =====================================================================
+// FUNÇÃO 2: RENDERIZA OS CARDS FÍSICOS NA TELA (MUSEU E PAGINAÇÃO)
+// =====================================================================
 function renderProjects() {
     if (!projectGrid) return;
     projectGrid.innerHTML = "";
 
     if (projectsData.length === 0) {
-        projectGrid.innerHTML = "<p>Nenhum projeto encontrado.</p>";
-        prev.style.display = "none";
-        next.style.display = "none";
+        projectGrid.innerHTML = "<p>Nenhum projeto encontrado no seu perfil.</p>";
+        if (prev) prev.style.display = "none";
+        if (next) next.style.display = "none";
         return;
     }
 
@@ -63,104 +117,151 @@ function renderProjects() {
     if (showAll) {
         displayedProjects = projectsData;
         projectGrid.classList.add("all-projects");
-        prev.style.display = "none";
-        next.style.display = "none";
-        toggle.innerText = "Mostrar menos";
+        if (prev) prev.style.display = "none";
+        if (next) next.style.display = "none";
+        if (toggle) toggle.innerText = "Mostrar menos";
     } else {
-        prev.style.display = "flex";
-        next.style.display = "flex";
-        toggle.innerText = "Ver todos";
+        if (prev) prev.style.display = "flex";
+        if (next) next.style.display = "flex";
+        if (toggle) toggle.innerText = "Ver todos";
 
         const start = currentPage * cardsPerPage;
         const end = start + cardsPerPage;
         displayedProjects = projectsData.slice(start, end);
 
         const totalPages = Math.ceil(projectsData.length / cardsPerPage);
-        prev.disabled = currentPage === 0;
-        next.disabled = currentPage >= totalPages - 1 || totalPages === 0;
+        if (prev) prev.disabled = currentPage === 0;
+        if (next) next.disabled = currentPage >= totalPages - 1 || totalPages === 0;
     }
 
-    // Procure por este trecho dentro da função renderProjects() no seu js/script.js:
+    // Varre os dados e cria as caixas HTML na tela
     displayedProjects.forEach(proj => {
         const card = document.createElement("article");
         card.className = "project-card";
 
-        // CORREÇÃO: Lê 'proj.nome' (MySQL) em vez de 'proj.descricao'
-        const tituloProjeto = proj.nome || "Projeto sem título";
-        const msdFormatado = proj.msd !== undefined && proj.msd !== null ? Number(proj.msd).toFixed(2) : "0.00";
+        // Ajuste exato das propriedades novas do MySQL Workbench ('nome')
+        const tituloProjeto = proj.nome || "Projeto de Terça sem título";
 
-        // CORREÇÃO: No MySQL, as propriedades de Lb e as dimensões ficam na tabela Coberturas.
-        // Para o carrossel carregar limpo sem travar:
         card.innerHTML = `
-        <div class="project-image"></div>
-        <div class="project-info">
-            <h3>${tituloProjeto}</h3>
-            <p>Perfil: ${proj.tipoPerfil || "Disponível"} • ID: #${proj.id}</p>
-            <span class="status andamento">Registrado no MySQL</span>
-            
-            <div style="margin-top: 10px; display: flex; gap: 8px;">
-                <button onclick="abrirProjeto(${proj.id})" style="background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-                    <i class="fa-solid fa-folder-open"></i> Abrir
-                </button>
-                <button onclick="deletarProjeto(${proj.id})" style="background: red; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-                    <i class="fa-solid fa-trash"></i> Excluir
-                </button>
+            <div class="project-image" style="background-image: url('img/PlantaTerca.png'); background-size: cover; background-position: center; height: 120px; border-radius: 4px 4px 0 0;"></div>
+            <div class="project-info" style="padding: 12px; text-align: left;">
+                <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 16px;">${tituloProjeto}</h3>
+                <p style="margin: 0 0 10px 0; color: #64748b; font-size: 13px;">ID da Obra: #${proj.id}</p>
+                <span class="status andamento" style="background: #e2e8f0; color: #334155; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">Ativo no MySQL</span>
+                
+                <div style="margin-top: 15px; display: flex; gap: 8px;">
+                    <button onclick="abrirProjeto(${proj.id})" style="background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 4px;">
+                        <i class="fa-solid fa-folder-open"></i> Abrir
+                    </button>
+                    <button onclick="deletarProjeto(${proj.id})" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 4px;">
+                        <i class="fa-solid fa-trash"></i> Excluir
+                    </button>
+                </div>
             </div>
-        </div>
-    `;
+        `;
 
         projectGrid.appendChild(card);
     });
-
 }
 
+// =====================================================================
+// FUNÇÃO 3: ABRE O PROJETO SELECIONADO REDIRECIONANDO COM O ID NA URL
+// =====================================================================
 function abrirProjeto(id) {
+    // Passa o ID na URL para o novoprojeto.html interceptar e ler no modo Edição
     window.location.href = `novoprojeto.html?id=${id}`;
 }
 
+// =====================================================================
+// FUNÇÃO 4: EXCLUI O PROJETO EM CASCATA DE FORMA TOTALMENTE SEGURA
+// =====================================================================
 async function deletarProjeto(id) {
-    if (!confirm("Tem certeza que deseja excluir este projeto?")) return;
+    if (!confirm("Tem certeza absoluta que deseja excluir permanentemente este projeto estrutural?")) return;
+
+    const emailUsuario = localStorage.getItem("userEmail");
+    const senhaUsuario = localStorage.getItem("userPassword");
+    const credenciaisCodificadas = btoa(`${emailUsuario}:${senhaUsuario}`);
 
     try {
         const response = await fetch(`${API_URL}/${id}/usuario/${user.id}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Authorization": `Basic ${credenciaisCodificadas}`
+            }
         });
 
         if (response.ok) {
+            // Remove da memória RAM local
             projectsData = projectsData.filter(proj => proj.id !== id);
+            
+            // Corrige paginação se deletar o último card da página final
+            const totalPages = Math.ceil(projectsData.length / cardsPerPage);
+            if (currentPage >= totalPages && currentPage > 0) {
+                currentPage--;
+            }
+            
+            // Atualiza o painel na hora de forma reativa
             renderProjects();
         } else {
-            alert("Você não tem permissão para excluir este projeto.");
+            const erroMsg = await response.text();
+            alert(`Falha ao excluir: ${erroMsg || "Verifique as permissões no MySQL."}`);
         }
     } catch (error) {
-        console.error("Erro ao deletar:", error);
+        console.error("Erro na conexão da deleção:", error);
+        alert("Erro técnico ao conectar com o servidor.");
     }
 }
 
-next.addEventListener("click", () => {
-    const totalPages = Math.ceil(projectsData.length / cardsPerPage);
-    if (currentPage < totalPages - 1) {
-        currentPage++;
+// =====================================================================
+// CONTROLES DE CLIQUES DOS BOTÕES DE NAVEGAÇÃO DO CARROSSEL
+// =====================================================================
+if (prev) {
+    prev.addEventListener("click", () => {
+        if (currentPage > 0) {
+            currentPage--;
+            renderProjects();
+        }
+    });
+}
+
+if (next) {
+    next.addEventListener("click", () => {
+        const totalPages = Math.ceil(projectsData.length / cardsPerPage);
+        if (currentPage < totalPages - 1) {
+            currentPage++;
+            renderProjects();
+        }
+    });
+}
+
+if (toggle) {
+    toggle.addEventListener("click", () => {
+        showAll = !showAll;
+        currentPage = 0;
         renderProjects();
-    }
-});
+    });
+}
 
-prev.addEventListener("click", () => {
-    if (currentPage > 0) {
-        currentPage--;
-        renderProjects();
-    }
-});
-
-toggle.addEventListener("click", () => {
-    showAll = !showAll;
-    currentPage = 0;
-    renderProjects();
-});
-
+// 🌟 ADICIONE ESTA FUNÇÃO NO FINAL DO SEU SCRIPT.JS:
 function novoProjeto() {
+    // Redireciona o usuário de forma limpa para a tela de cadastro de terças
     window.location.href = "novoprojeto.html";
 }
 
-// Initialize
-fetchProjects();
+
+// Dispara o carregamento do banco assim que a página termina de abrir
+document.addEventListener("DOMContentLoaded", carregarProjetosDoUsuario);
+
+
+
+function logout() {
+        localStorage.clear(); // Limpa tokens, e-mail, senha e dados do usuário
+        window.location.href = "login.html";
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof carregarProjetosDoUsuario === "function") {
+        carregarProjetosDoUsuario();
+    }
+});
