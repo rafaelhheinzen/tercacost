@@ -16,6 +16,8 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 
         const user = await response.json();
         localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("userEmail", email);
+        localStorage.setItem("userPassword", senha);
         window.location.href = "index.html";
     } catch (err) {
         document.getElementById("auth-message").innerText = err.message;
