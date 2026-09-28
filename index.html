@@ -13,7 +13,7 @@
 
     <header>
         <div class="logo">
-            <img src="img/logo.png" alt="TerçaCost">
+            <img src="img/logoHeader.png" alt="TerçaCost">
         </div>
         <div class="header-right">
             <button class="notification">
@@ -22,7 +22,7 @@
             <div class="user">
                 <img src="img/usericon.png" alt="Usuário">
                 <div>
-                    <strong id="user-name">João Silva</strong>
+                    <strong id="user-name"></strong>
                     <span>Cliente</span>
                 </div>
                 <button onclick="logout()"
@@ -37,6 +37,7 @@
         <section class="welcome">
             <h1>Olá, João!</h1>
             <p>Bem-vindo à área do cliente. Aqui você acompanha seus projetos.</p>
+            <p class="p-alert" style="color:rgb(2, 16, 214);">Nosso sistema está em total conformidade com a legislação brasileira e com as diretrizes da norma ABNT NBR 14762.</p>
         </section>
 
         <section class="new-project">
@@ -58,12 +59,15 @@
                 </button>
 
                 <!-- Cleared static items: JavaScript will populate this -->
-                <div class="project-grid" id="projectGrid"></div>
+                <div class="project-grid" id="project-grid"></div>
 
                 <button class="nav next" id="next">
                     <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
+                <br><br>
+                <p style="color: rgb(175, 143, 0);">*Isenção de Responsabilidade: Os elementos técnicos deste projeto são de autoria e responsabilidade exclusiva do engenheiro signatário, conforme legislação vigente e respectiva ART (Anotação de Responsabilidade Técnica). </p>
+
         </section>
     </main>
 
