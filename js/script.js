@@ -142,23 +142,22 @@ function renderProjects() {
         // Ajuste exato das propriedades novas do MySQL Workbench ('nome')
         const tituloProjeto = proj.nome || "Projeto de Terça sem título";
 
-        card.innerHTML = `
-            <div class="project-image" style="background-image: url('img/PlantaTerca.png'); background-size: cover; background-position: center; height: 120px; border-radius: 4px 4px 0 0;"></div>
-            <div class="project-info" style="padding: 12px; text-align: left;">
-                <h3 style="margin: 0 0 5px 0; color: #1e293b; font-size: 16px;">${tituloProjeto}</h3>
-                <p style="margin: 0 0 10px 0; color: #64748b; font-size: 13px;">ID da Obra: #${proj.id}</p>
-                <span class="status andamento" style="background: #e2e8f0; color: #334155; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold;">Ativo no MySQL</span>
-                
-                <div style="margin-top: 15px; display: flex; gap: 8px;">
-                    <button onclick="abrirProjeto(${proj.id})" style="background: #0284c7; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 4px;">
-                        <i class="fa-solid fa-folder-open"></i> Abrir
-                    </button>
-                    <button onclick="deletarProjeto(${proj.id})" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; display: flex; align-items: center; gap: 4px;">
-                        <i class="fa-solid fa-trash"></i> Excluir
-                    </button>
-                </div>
-            </div>
-        `;
+card.innerHTML = `
+    <div class="project-image" style="background-image: url('img/PlantaTerca.png');"></div>
+    <div class="project-info">
+        <h3 class="project-title">${tituloProjeto}</h3>
+        
+        <div class="project-actions">
+            <button onclick="deletarProjeto(${proj.id})" class="btn btn-delete">
+                <i class="fa-solid fa-trash"></i> Excluir
+            </button>
+            <button onclick="abrirProjeto(${proj.id})" class="btn btn-open">
+                <i class="fa-solid fa-folder-open"></i> Abrir
+            </button>
+        </div>
+    </div>
+`;
+
 
         projectGrid.appendChild(card);
     });
@@ -215,48 +214,58 @@ async function deletarProjeto(id) {
 // =====================================================================
 // CONTROLES DE CLIQUES DOS BOTÕES DE NAVEGAÇÃO DO CARROSSEL
 // =====================================================================
-if (prev) {
-    prev.addEventListener("click", () => {
-        if (currentPage > 0) {
-            currentPage--;
+document.addEventListener("DOMContentLoaded", () => {
+    // Captura os elementos do HTML pelos IDs correspondentes
+    const prev = document.getElementById("prev");
+    const next = document.getElementById("next");
+    const toggle = document.getElementById("toggleView");
+
+    // Vincula os eventos apenas se os botões existirem na página
+    if (prev) {
+        prev.addEventListener("click", () => {
+            if (currentPage > 0) {
+                currentPage--;
+                renderProjects();
+            }
+        });
+    }
+
+    if (next) {
+        next.addEventListener("click", () => {
+            const totalPages = Math.ceil(projectsData.length / cardsPerPage);
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderProjects();
+            }
+        });
+    }
+
+    if (toggle) {
+        toggle.addEventListener("click", () => {
+            showAll = !showAll;
+            currentPage = 0;
+            // Altera o texto do botão visualmente
+            toggle.textContent = showAll ? "Ver carrossel" : "Ver todos"; 
             renderProjects();
-        }
-    });
-}
+        });
+    }
 
-if (next) {
-    next.addEventListener("click", () => {
-        const totalPages = Math.ceil(projectsData.length / cardsPerPage);
-        if (currentPage < totalPages - 1) {
-            currentPage++;
-            renderProjects();
-        }
-    });
-}
+    // Dispara o carregamento do banco apenas uma vez de forma segura
+    if (typeof carregarProjetosDoUsuario === "function") {
+        carregarProjetosDoUsuario();
+    }
+});
 
-if (toggle) {
-    toggle.addEventListener("click", () => {
-        showAll = !showAll;
-        currentPage = 0;
-        renderProjects();
-    });
-}
-
-// 🌟 ADICIONE ESTA FUNÇÃO NO FINAL DO SEU SCRIPT.JS:
+// =====================================================================
+// FUNÇÕES AUXILIARES DE NAVEGAÇÃO E SESSÃO
+// =====================================================================
 function novoProjeto() {
-    // Redireciona o usuário de forma limpa para a tela de cadastro de terças
     window.location.href = "novoprojeto.html";
 }
 
-
-// Dispara o carregamento do banco assim que a página termina de abrir
-document.addEventListener("DOMContentLoaded", carregarProjetosDoUsuario);
-
-
-
 function logout() {
-        localStorage.clear(); // Limpa tokens, e-mail, senha e dados do usuário
-        window.location.href = "login.html";
+    localStorage.clear(); 
+    window.location.href = "login.html";
 }
 
 
