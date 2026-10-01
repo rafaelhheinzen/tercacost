@@ -136,7 +136,7 @@ document.getElementById("calculate").addEventListener("click", async (e) => {
     };
 
     // A rota agora bate SEMPRE no nosso endpoint inteligente de engenharia do MySQL
-    const targetUrl = `${}/salvar-calculado`;
+    const targetUrl = `${API_URL}/salvar-calculado`;
 
     resultElement.style.color = "#2b579a";
     resultElement.innerText = "Processando engenharia e atualizando dados no MySQL...";
