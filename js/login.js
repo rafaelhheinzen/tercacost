@@ -34,11 +34,11 @@ document.getElementById("register-form").addEventListener("submit", async (e) =>
     const senha = document.getElementById("reg-password").value;
 
     try {
-        const response = await fetch(`${AUTH_URL}/cadastrar`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ nome, email, senha })
-        });
+        const response = await fetch("https://tercacost.onrender.com/auth/cadastrar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ nome, email, senha })
+})
 
         if (!response.ok) throw new Error(await response.text());
 
