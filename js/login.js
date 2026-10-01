@@ -6,11 +6,13 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     const senha = document.getElementById("login-password").value;
 
     try {
-        const response = await fetch(`${AUTH_URL}/login`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, senha })
-        });
+        const response = await fetch("https://tercacost.onrender.com/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, senha })
+});
+
+        
 
         if (!response.ok) throw new Error(await response.text());
 
