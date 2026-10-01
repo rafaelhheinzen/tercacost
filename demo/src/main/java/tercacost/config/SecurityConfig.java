@@ -46,7 +46,7 @@ public class SecurityConfig {
         
         // Permite requisições vindas do seu domínio no GitHub Pages
         configuration.setAllowedOrigins(List.of(
-    "https://rafaelhheinzen.github.io",
+    "https://rafaelhheinzen.github.io/tercacost",
     "http://localhost:5500",
     "http://127.0.0.1:5500"
 ));
