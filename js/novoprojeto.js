@@ -28,7 +28,7 @@ if (projectId) {
         // Codifica no padrão Basic Auth exigido pelo Spring Security
         const credenciaisCodificadas = btoa(`${emailUsuario}:${senhaUsuario}`);
 
-        fetch(`${API_URL}/${projectId}/usuario/${user.id}`, {
+        fetch(`${API_URL}/projetos/${projectId}/usuario/${user.id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -136,7 +136,7 @@ document.getElementById("calculate").addEventListener("click", async (e) => {
     };
 
     // A rota agora bate SEMPRE no nosso endpoint inteligente de engenharia do MySQL
-    const targetUrl = `${API_URL}/salvar-calculado`;
+    const targetUrl = `${API_URL}/projetos/salvar-calculado`;
 
     resultElement.style.color = "#2b579a";
     resultElement.innerText = "Processando engenharia e atualizando dados no MySQL...";
