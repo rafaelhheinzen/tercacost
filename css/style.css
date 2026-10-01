@@ -125,8 +125,8 @@ header {
 
 .resume {
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: ;
+    -template-columns: repeat(4, 1fr);
 
     gap: 25px;
 
@@ -418,23 +418,17 @@ header {
 }
 
 .carousel {
-
     display: flex;
     align-items: center;
     gap: 20px;
-
 }
 
 .project-grid {
-
     flex: 1;
-
+    min-width: 0;                       /* permite encolher dentro do flex */
     display: grid;
-
-    grid-template-columns: repeat(3, minmax(300px, 1fr));
-
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
-
 }
 
 .nav {
