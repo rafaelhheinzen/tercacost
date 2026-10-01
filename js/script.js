@@ -1,7 +1,7 @@
 // =====================================================================
 // VARIÁVEIS GLOBAIS DE CONTROLE DO CARROSSEL E SISTEMA
 // =====================================================================
-const API_URL = "http://localhost:8080/projetos";
+const API_URL = "https://tercacost.onrender.com";
 let projectsData = []; // Array global unificado que recebe os dados do MySQL
 let currentPage = 0;
 const cardsPerPage = 3;
