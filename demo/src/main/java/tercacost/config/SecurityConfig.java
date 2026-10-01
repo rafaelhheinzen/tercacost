@@ -45,7 +45,11 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         
         // Permite requisições vindas do seu domínio no GitHub Pages
-        configuration.setAllowedOrigins(List.of("https://github.io")); 
+        configuration.setAllowedOrigins(List.of(
+    "https://rafaelhheinzen.github.io",
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+));
         
         // Permite os métodos HTTP mais comuns
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
