@@ -9,6 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -22,14 +26,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/auth/**").permitAll()
                     .requestMatchers("/api/calculo/**").permitAll()
-                    
-                    // 🌟 ADICIONE ESTA LINHA: Garante que as requisições GET de leitura de projetos passem sem travas se autenticadas via Basic Auth
                     .requestMatchers(HttpMethod.GET, "/projetos/**").permitAll() 
-                    
                     .anyRequest().authenticated()
                 )
-
-
             .httpBasic(Customizer.withDefaults()); // Ativa a autenticação básica para validação
 
         return http.build();
@@ -38,5 +37,27 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(); // Define o padrão de criptografia seguro de senhas
+    }
+
+    // 🌟 ADICIONE ESTE BLOCO ABAIXO: Ele diz ao Spring quais domínios externos podem acessar sua API
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        
+        // Permite requisições vindas do seu domínio no GitHub Pages
+        configuration.setAllowedOrigins(List.of("https://github.io")); 
+        
+        // Permite os métodos HTTP mais comuns
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        
+        // Permite os cabeçalhos padrão enviados pelo fetch do JavaScript
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+        
+        // Permite o envio de cookies ou credenciais caso precise futuramente
+        configuration.setAllowCredentials(true);
+        
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Aplica essa regra em todas as rotas da API
+        return source;
     }
 }
