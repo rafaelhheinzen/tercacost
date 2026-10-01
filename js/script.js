@@ -72,7 +72,7 @@ async function carregarProjetosDoUsuario() {
             projectGrid.innerHTML = `<p><i class="fa-solid fa-spinner fa-spin"></i> Lendo tabelas estruturais no MySQL...</p>`;
         }
 
-        const response = await fetch(`${API_URL}/usuario/${user.id}`, {
+        const response = await fetch(`${API_URL}/projetos/usuario/${user.id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
