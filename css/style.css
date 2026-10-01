@@ -17,27 +17,21 @@ body {
 header {
     height: 90px;
     background: #051D42;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     position: relative;
-
     padding: 0 40px;
-
     box-shadow: 0 3px 10px rgba(0, 0, 0, .08);
 }
 
-
 .logo img {
-    width: 170px
+    width: 170px;
 }
 
 .header-right {
     position: absolute;
     right: 40px;
-
     display: flex;
     align-items: center;
     gap: 20px;
@@ -46,17 +40,12 @@ header {
 .notification {
     width: 45px;
     height: 45px;
-
     border: none;
     border-radius: 50%;
-
     cursor: pointer;
-
     background: #ffffff15;
     color: white;
-
     font-size: 18px;
-
     transition: .3s;
 }
 
@@ -68,14 +57,12 @@ header {
     display: flex;
     align-items: center;
     gap: 12px;
-
     color: white;
 }
 
 .user img {
     width: 52px;
     height: 52px;
-
     border-radius: 50%;
     object-fit: cover;
 }
@@ -124,55 +111,38 @@ header {
 =========================== */
 
 .resume {
-
-    display: ;
-    -template-columns: repeat(4, 1fr);
-
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 25px;
-
     margin-bottom: 50px;
 }
 
 .resume-card {
-
     background: white;
-
     border-radius: 18px;
-
     padding: 25px;
-
     text-align: center;
-
     box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
-
     transition: .3s;
 }
 
 .resume-card:hover {
-
     transform: translateY(-5px);
-
     box-shadow: 0 15px 35px rgba(0, 0, 0, .08);
 }
 
 .resume-card i {
-
     color: #051D42;
-
     font-size: 35px;
-
     margin-bottom: 15px;
 }
 
 .resume-card h2 {
-
     font-size: 36px;
-
     color: #051D42;
 }
 
 .resume-card span {
-
     color: #666;
 }
 
@@ -181,241 +151,38 @@ header {
 =========================== */
 
 .projects {
-
     margin-bottom: 60px;
 }
 
 .title {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 25px;
 }
 
 .title h2 {
-
     color: #051D42;
-
     font-size: 30px;
 }
 
 .title button {
-
     background: #051D42;
-
     color: white;
-
     border: none;
-
     padding: 12px 24px;
-
     border-radius: 10px;
-
     cursor: pointer;
-
     transition: .3s;
 }
 
 .title button:hover {
-
     background: #183d71;
 }
 
-
-.project-card {
-    background: white;
-    border-radius: 18px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-grid.all-projects {
-
-    grid-template-rows: auto;
-
-}
-
-.project-card:hover {
-
-    transform: translateY(-8px);
-
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
-
-}
-
-.project-image {
-    width: 100%;
-    height: 180px;
-    background-size: contain;      /* mostra a imagem inteira */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #fff;
-}
-
-.project-info {
-
-    padding: 20px;
-}
-
-.project-info h3 {
-
-    color: #051D42;
-
-    margin-bottom: 8px;
-}
-
-.project-info p {
-
-    color: #666;
-
-    margin-bottom: 15px;
-}
-
-
 /* ===========================
-   NOVO PROJETO
+   CARROSSEL / GRID
 =========================== */
-
-.new-project {
-
-    display: flex;
-    justify-content: center;
-
-    margin-bottom: 35px;
-
-}
-
-.new-project-btn {
-
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    padding: 16px 28px;
-
-    border: none;
-    border-radius: 16px;
-
-    background: #051D42;
-
-    color: white;
-
-    font-size: 16px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    box-shadow: 0 12px 30px rgba(15, 39, 72, .25);
-
-    transition:
-        transform .25s,
-        box-shadow .25s,
-        background .25s;
-
-}
-
-.new-project-btn:hover {
-
-    transform: translateY(-4px);
-
-    box-shadow: 0 18px 40px rgba(15, 39, 72, .35);
-
-    background: linear-gradient(135deg, #173760, #25589f);
-
-}
-
-.new-project-btn:active {
-
-    transform: scale(.97);
-
-}
-
-.new-project-btn .icon {
-
-    width: 36px;
-    height: 36px;
-
-    border-radius: 50%;
-
-    background: rgba(255, 255, 255, .18);
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 15px;
-
-    transition: .3s;
-
-}
-
-.new-project-btn:hover .icon {
-
-    transform: rotate(90deg);
-
-    background: rgba(255, 255, 255, .28);
-
-}
-
-
-/* ===========================
-   STATUS
-=========================== */
-
-.status{
-
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-
-    padding:8px 16px;
-
-    border-radius:999px;
-
-    font-size:13px;
-    font-weight:600;
-
-}
-
-.andamento {
-
-    background: #fff2cf;
-
-    color: #9a6d00;
-}
-
-.finalizado {
-
-    background: #d8f5dc;
-
-    color: #1d7a31;
-}
-
-.nav:hover {
-
-    transform: scale(1.08);
-
-    background: #183d71;
-
-}
-
-.project-grid.show-all {
-
-    grid-template-columns: repeat(3, 1fr);
-
-}
-
-.hide {
-
-    display: none;
-
-}
 
 .carousel {
     display: flex;
@@ -425,72 +192,223 @@ header {
 
 .project-grid {
     flex: 1;
-    min-width: 0;                       /* permite encolher dentro do flex */
+    min-width: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 25px;
 }
 
-.nav {
+.project-grid.all-projects {
+    grid-template-rows: auto;
+}
 
+.project-grid.show-all {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.hide {
+    display: none;
+}
+
+.nav {
     width: 55px;
     height: 55px;
-
     border: none;
-
     border-radius: 50%;
-
     background: #051D42;
-
     color: white;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     cursor: pointer;
-
     transition: .3s;
-
 }
 
 .nav:hover {
-
     transform: scale(1.1);
-
     background: #183d71;
-
 }
 
 .nav:disabled {
-
     opacity: .3;
     cursor: not-allowed;
-
 }
 
+/* ===========================
+   CARD DO PROJETO
+=========================== */
+
 .project-card {
-
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .3s, box-shadow .3s;
     animation: fade .3s;
+}
 
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+}
+
+.project-image {
+    width: 100%;
+    height: 180px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+
+.project-info {
+    padding: 20px;
+}
+
+.project-info h3,
+.project-title {
+    color: #051D42;
+    font-size: 20px;
+    margin-bottom: 18px;
+}
+
+.project-info p {
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* ===========================
+   BOTÕES DO CARD
+=========================== */
+
+.project-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: background .25s, transform .25s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #ef4444;
+}
+
+.btn-delete:hover {
+    background: #dc2626;
+}
+
+.btn-open {
+    background: #0284c7;
+}
+
+.btn-open:hover {
+    background: #0369a1;
 }
 
 @keyframes fade {
-
     from {
-
         opacity: 0;
         transform: translateY(15px);
-
     }
-
     to {
-
         opacity: 1;
         transform: translateY(0);
-
     }
+}
 
+/* ===========================
+   NOVO PROJETO
+=========================== */
+
+.new-project {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 35px;
+}
+
+.new-project-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 28px;
+    border: none;
+    border-radius: 16px;
+    background: #051D42;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(15, 39, 72, .25);
+    transition: transform .25s, box-shadow .25s, background .25s;
+}
+
+.new-project-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(15, 39, 72, .35);
+    background: linear-gradient(135deg, #173760, #25589f);
+}
+
+.new-project-btn:active {
+    transform: scale(.97);
+}
+
+.new-project-btn .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .18);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.new-project-btn:hover .icon {
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, .28);
+}
+
+/* ===========================
+   STATUS
+=========================== */
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.andamento {
+    background: #fff2cf;
+    color: #9a6d00;
+}
+
+.finalizado {
+    background: #d8f5dc;
+    color: #1d7a31;
 }
 
 /* ===========================
@@ -498,94 +416,61 @@ header {
 =========================== */
 
 .actions h2 {
-
     margin-bottom: 25px;
-
     color: #051D42;
 }
 
 .action-grid {
-
     display: grid;
-
     grid-template-columns: repeat(4, 1fr);
-
     gap: 20px;
 }
 
 .action-grid button {
-
     border: none;
-
     background: white;
-
     border-radius: 15px;
-
     padding: 25px;
-
     cursor: pointer;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 15px;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 16px;
-
     box-shadow: 0 10px 25px rgba(0, 0, 0, .05);
-
     transition: .3s;
 }
 
 .action-grid button:hover {
-
     background: #051D42;
-
     color: white;
-
     transform: translateY(-5px);
 }
 
 .action-grid i {
-
     font-size: 30px;
-}
-
-.carousel {
-
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
 }
 
 /* ===========================
    RESPONSIVO
 =========================== */
 
-@media(max-width:1000px) {
-
+@media (max-width: 1000px) {
     .resume {
         grid-template-columns: repeat(2, 1fr);
     }
 
     .project-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .action-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
-@media(max-width:700px) {
-
+@media (max-width: 700px) {
     header {
         justify-content: flex-start;
         padding: 20px;
@@ -620,5 +505,4 @@ header {
     .user div {
         display: none;
     }
-
 }
