@@ -136,7 +136,7 @@ document.getElementById("calculate").addEventListener("click", async (e) => {
     };
 
     // A rota agora bate SEMPRE no nosso endpoint inteligente de engenharia do MySQL
-    const targetUrl = `${API_URL}/salvar-calculado`;
+    const targetUrl = `${}/salvar-calculado`;
 
     resultElement.style.color = "#2b579a";
     resultElement.innerText = "Processando engenharia e atualizando dados no MySQL...";
@@ -240,7 +240,7 @@ async function calcularEVerificar() {
     campoResultado.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Executando combinações e análises NBR...`;
 
     try {
-        const respostaHttp = await fetch('http://localhost:8080/api/calculo/verificar-perfil', {
+        const respostaHttp = await fetch(`${API_URL}/api/calculo/verificar-perfil`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
