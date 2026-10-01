@@ -1,11 +1,11 @@
-# Estágio 1: Build da aplicação
-FROM maven:3.8.8-openjdk-17 AS build
+# Estágio 1: Build da aplicação (Usando a imagem oficial do Maven com Eclipse Temurin)
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Estágio 2: Execução da aplicação
-FROM openjdk:17-jdk-slim
+# Estágio 2: Execução da aplicação (Usando a imagem oficial do Eclipse Temurin para rodar o Java 17)
+FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
