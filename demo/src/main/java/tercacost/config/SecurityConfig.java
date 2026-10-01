@@ -59,6 +59,8 @@ public class SecurityConfig {
         
         // Permite o envio de cookies ou credenciais caso precise futuramente
         configuration.setAllowCredentials(true);
+
+        
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // Aplica essa regra em todas as rotas da API
